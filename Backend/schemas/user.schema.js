@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from 'bcryptjs'
 
 const userSchema = new mongoose.Schema({
     email : String,
@@ -6,7 +7,7 @@ const userSchema = new mongoose.Schema({
     role : {
         type : String,
         enum : ['admin','user'],
-        default : 'user'
+        default : 'admin'
     }
 },{timestamps : true})
 
@@ -65,3 +66,13 @@ const taskSchema = new mongoose.Schema({
 },{timestamps : true})
 
 export const Task = mongoose.model('Task',taskSchema)
+
+
+// index route
+// auth => 
+// project => 
+// task => 
+// user => 
+
+
+
