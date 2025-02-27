@@ -1,10 +1,11 @@
-import React, { useContext, useState } from 'react';
+import  { useContext, useState } from 'react';
 import AuthContext from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import Modal from '../components/ui/Modal';
 
 const Dashboard = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const { user, setUser } = useContext(AuthContext);
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
