@@ -8,6 +8,11 @@ const userSchema = new mongoose.Schema({
         type : String,
         enum : ['admin','user'],
         default : 'admin'
+    },
+    name : String,
+    createdBy : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : 'User'
     }
 },{timestamps : true})
 
@@ -19,6 +24,11 @@ const projectSchema = new mongoose.Schema({
     owner : {
         type : mongoose.Schema.Types.ObjectId,
         ref : 'User'
+    },
+    description : String,
+    status : { 
+        type : Boolean,
+        default : true
     }
 },{timestamps : true})
 

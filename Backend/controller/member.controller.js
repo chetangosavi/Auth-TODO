@@ -1,15 +1,15 @@
-import { ProjectMember } from "../schemas/user.schema.js";
+import { User } from "../schemas/user.schema.js";
 import { Response } from "../services/Response.js";
+import bcrypt from 'bcryptjs';
 
-export const Member = async (req,res)=>{
-
+export const addMember = async(req,res) => {
     try {
-        const {project,member} = req.body;
-        if(!project || !member)return Response(res,400,"Fields cannot be empty")
-        const newMember = new ProjectMember({project,member})
-        await newMember.save() 
-        Response(res,200,"User created successfully")
+        const {name,email,password} = req.body;
+        const hanshedPassword = await bcrypt.hash(password,10)
+        const user = await User.create({name,email,password : hanshedPassword,createdBy : req.user.userId, role : 'user'})
+        return Response(res,200,'User created successfully',user)
     } catch (error) {
-        Response(res,500,"Server Error")
+        return Response(res,500,error.message)
     }
 }
+

@@ -61,10 +61,14 @@ export const login = async (req,res) => {
     }
 }
 
-// export const me = async (req,res) => {
-//     try {
-        
-//     } catch (error) {
-//         return Response(res,500,error.message)
-//     }
-// }
+export const me = async (req,res) => {
+    try {
+        const user = await User.findById({_id : req.user.userId})
+        console.log({user})
+        Response(res,200,'User fetched successfully',{
+            user
+        })
+    } catch (error) {
+        return Response(res,500,error.message)
+    }
+}

@@ -1,18 +1,13 @@
 
 import express from 'express'
-import { login, signup } from '../controller/auth.controller.js'
-import { createProject, getProject } from '../controller/project.controller.js'
-import { createTask } from '../controller/task.controller.js'
-import { Member } from '../controller/member.controller.js'
+import { login, me, signup } from '../controller/auth.controller.js'
+import { authMiddleware } from '../middlewares/auth.middleware.js'
 
 const router = express.Router()
 
 router.post('/signup',signup)
 router.post('/login',login)
-router.post('/project',createProject)
-router.get('/project',getProject)
-router.post('/task',createTask)
-router.post('/member',Member)
+router.get('/me',authMiddleware,me)
 
 
 export default router
