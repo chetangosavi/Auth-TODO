@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import  { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
@@ -6,6 +6,7 @@ const Auth = () => {
   const [activeTab, setActiveTab] = useState('signup');
   const [formData, setFormData] = useState({ email: '', password: '' });
 
+  // eslint-disable-next-line no-unused-vars
   const {user,setUser} = useContext(AuthContext)
 
   useEffect(() =>{
@@ -17,6 +18,7 @@ const Auth = () => {
   },[])
 
  const navigate = useNavigate()
+ 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });

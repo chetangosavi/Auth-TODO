@@ -1,5 +1,5 @@
-import { ProjectMember } from "../schemas/user.schema";
-import { Response } from "../services/Response";
+import { ProjectMember } from "../schemas/user.schema.js";
+import { Response } from "../services/Response.js";
 
 export const Member = async (req,res)=>{
 

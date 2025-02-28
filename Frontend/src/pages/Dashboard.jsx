@@ -2,14 +2,38 @@ import  { useContext, useState } from 'react';
 import AuthContext from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import Modal from '../components/ui/Modal';
+import axios from 'axios';
+import ProjectContainer from '../components/ProjectContainer';
 
 const Dashboard = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [projectData,setProjectData] = useState({name:''})
+  console.log(projectData.name)
+  
+  
   // eslint-disable-next-line no-unused-vars
   const { user, setUser } = useContext(AuthContext);
   const [modalOpen, setModalOpen] = useState(false);
+
   const navigate = useNavigate();
 
+  const handleOnChange = (e)=>{
+    const {value} = e.target
+    setProjectData({name:value});
+  }
+  const handleSubmit = async (e)=>{
+    e.preventDefault();
+    console.log(projectData)
+    try {
+      const response = await axios.post('http://localhost:8000/api/auth/project',{name:projectData.name})
+      alert(response.data.message)
+      console.log({response})
+      setModalOpen(false)
+
+    } catch (error) {
+      console.error({error:error.message})
+    }
+  }
   return (
     <div className="min-h-screen bg-gray-100 p-4">
       {/* Navbar */}
@@ -46,32 +70,36 @@ const Dashboard = () => {
           className="bg-blue-500 text-white px-6 py-2 rounded-lg shadow-lg hover:bg-blue-600"
           onClick={() => setModalOpen(true)}
         >
-          Create User
+          Create Project
         </button>
       </div>
 
       {/* Modal */}
       <Modal open={modalOpen} setOpen={setModalOpen}>
-      <h2 className="text-lg font-bold text-center mb-4">Create User</h2>
-        <p className="mt-2 text-center text-gray-600">Enter details to create a new user.</p>
-        <div className="flex flex-col gap-4 mt-4">
+      <h2 className="text-lg font-bold text-center mb-4">Create Project</h2>
+        <p className="mt-2 text-center text-gray-600">Enter details to create a new Project.</p>
+        <div >
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-4">
           <input 
-            type="email" 
-            placeholder="Email" 
+            type="text" 
+            placeholder="Project Name" 
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            onChange={handleOnChange}
           />
-          <input 
-            type="password" 
-            placeholder="Password" 
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+          
           <button 
             className="bg-blue-500 text-white px-6 py-2 rounded-lg shadow-lg hover:bg-blue-600 transition"
+            type='submit'
           >
             Create
           </button>
+          </form>
         </div>
       </Modal>
+
+      <div>
+        <ProjectContainer/>
+      </div>
     </div>
   );
 };
