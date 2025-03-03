@@ -1,4 +1,4 @@
-import React from 'react';
+/* eslint-disable react/prop-types */
 import ReactDOM from 'react-dom';
 
 const Modal = ({ children, open, setOpen }) => {
